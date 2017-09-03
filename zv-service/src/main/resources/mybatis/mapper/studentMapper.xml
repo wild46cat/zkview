@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xueyou.zkview.service.dao.StudentDao">
+
+    <sql id="allField">
+    id, `name`, age, memo AS attr, createtime, updatetime
+    </sql>
+
+    <select id="getAll" resultType="com.xueyou.zkview.service.pojo.Student">
+        select
+        <include refid="allField"/>
+        from student
+    </select>
+
+    <select id="getById" resultType="com.xueyou.zkview.service.pojo.Student">
+        SELECT
+        <include refid="allField"/>
+        from student WHERE id = #{id}
+    </select>
+
+    <select id="getByNameLike" resultType="com.xueyou.zkview.service.pojo.Student">
+        SELECT
+        <include refid="allField"/>
+        from student WHERE name LIKE CONCAT('%',#{name},'%')
+    </select>
+
+    <select id="getByIdAndName" resultType="com.xueyou.zkview.service.pojo.Student" parameterType="com.xueyou.zkview.service.pojo.Student">
+        SELECT
+        <include refid="allField"/>
+        from student WHERE id = #{id} AND name = #{name}
+    </select>
+
+    <select id="getByIdAndNameWithParamMap" resultType="com.xueyou.zkview.service.pojo.Student" parameterType="HashMap">
+        SELECT
+        <include refid="allField"/>
+        from student WHERE id = #{id} AND name = #{name}
+    </select>
+
+    <select id="getByCreateTime" resultType="com.xueyou.zkview.service.pojo.Student">
+        SELECT
+        <include refid="allField"/>
+        from student where createtime >= #{date}
+    </select>
+
+    <insert id="insertStudent" parameterType="com.xueyou.zkview.service.pojo.Student">
+        insert INTO student(id, `name`, age, memo)
+        VALUES (#{id},#{name},#{age},#{memo})
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM student where id = #{id}
+    </delete>
+</mapper>
