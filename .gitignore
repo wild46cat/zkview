@@ -2,3 +2,5 @@
 /.idea/
 /zv-service/target/
 *.iml
+/zk-core/src/test/
+/zk-core/target/

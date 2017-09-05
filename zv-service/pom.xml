@@ -45,5 +45,10 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.xueyou.zkview</groupId>
+            <artifactId>zk-core</artifactId>
+        </dependency>
+
     </dependencies>
 </project>
