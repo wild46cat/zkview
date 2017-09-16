@@ -1,6 +1,7 @@
 package com.xueyou.zkview.core.zkUtils;
 
 import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.data.Stat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,9 @@ public class XyZkTools {
     public static List<String> res = new ArrayList<>();
 
     public static List<String> getNode(CuratorZkClientBridge curatorZkClientBridge, String parentNode) {
+        if (parentNode.equals("/")) {
+            res.clear();
+        }
         try {
             List<String> tmpList = curatorZkClientBridge.getChildren(parentNode, false);
             for (String tmp : tmpList) {
@@ -28,5 +32,10 @@ public class XyZkTools {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static String readNode(CuratorZkClientBridge curatorZkClientBridge, String nodePath) throws Exception {
+        byte[] res = curatorZkClientBridge.readData(nodePath, new Stat(), false);
+        return new String(res);
     }
 }

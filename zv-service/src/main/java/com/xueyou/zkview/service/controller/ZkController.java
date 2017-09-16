@@ -52,4 +52,14 @@ public class ZkController {
         List<String> resList = XyZkTools.res;
         return resList;
     }
+
+    @RequestMapping("/getByNodeName")
+    public String getByNodeName(String name) {
+        try {
+            return XyZkTools.readNode(curatorZkClientBridge, name);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 }
