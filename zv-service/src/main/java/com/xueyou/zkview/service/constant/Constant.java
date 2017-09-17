@@ -7,5 +7,4 @@ import org.apache.curator.framework.CuratorFramework;
  */
 public class Constant {
     public static String connectionString;
-    public static CuratorFramework curatorFramework;
 }

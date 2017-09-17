@@ -1,5 +1,6 @@
 package com.xueyou.zkview.core.zkUtils;
 
+import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.Stat;
 
@@ -38,4 +39,14 @@ public class XyZkTools {
         byte[] res = curatorZkClientBridge.readData(nodePath, new Stat(), false);
         return new String(res);
     }
+
+
+    public static void writeNode(CuratorZkClientBridge curatorZkClientBridge, String nodePath, String value) throws Exception {
+        //查看版本
+        Stat stat = new Stat();
+        curatorZkClientBridge.readData(nodePath, stat, false);
+        curatorZkClientBridge.writeData(nodePath, value.getBytes(), stat.getVersion());
+    }
+
+
 }
