@@ -1,31 +1,22 @@
-package com.xueyou.zkview.core;
+package com.xueyou.zkview.core.zkUtils;
 
-import com.xueyou.zkview.core.zkUtils.CreateClient;
-import com.xueyou.zkview.core.zkUtils.CuratorZkClientBridge;
-import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.data.Stat;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by wuxueyou on 2017/9/5.
+ * Created by wuxueyou on 2017/9/6.
  */
-public class App {
-    public static String connectionString = "192.168.0.99:2181,192.168.0.99:2182,192.168.0.99:2183";
+public class XyZkTools {
     public static List<String> res = new ArrayList<>();
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-        CuratorFramework curatorFramework = CreateClient.createSimple(connectionString);
-        curatorFramework.start();
-        //doSomething to zookeeper
-        CuratorZkClientBridge curatorZkClientBridge = new CuratorZkClientBridge(curatorFramework);
-        System.out.println(getNode(curatorZkClientBridge, "/"));
-        curatorFramework.close();
-    }
-
     public static List<String> getNode(CuratorZkClientBridge curatorZkClientBridge, String parentNode) {
+        if (parentNode.equals("/")) {
+            res.clear();
+        }
         try {
             List<String> tmpList = curatorZkClientBridge.getChildren(parentNode, false);
             for (String tmp : tmpList) {
@@ -42,5 +33,19 @@ public class App {
             return null;
         }
     }
+
+    public static String readNode(CuratorZkClientBridge curatorZkClientBridge, String nodePath) throws Exception {
+        byte[] res = curatorZkClientBridge.readData(nodePath, new Stat(), false);
+        return new String(res);
+    }
+
+
+    public static void writeNode(CuratorZkClientBridge curatorZkClientBridge, String nodePath, String value) throws Exception {
+        //查看版本
+        Stat stat = new Stat();
+        curatorZkClientBridge.readData(nodePath, stat, false);
+        curatorZkClientBridge.writeData(nodePath, value.getBytes(), stat.getVersion());
+    }
+
 
 }

@@ -1,6 +1,5 @@
 package com.xueyou.zkview.core.zkUtils;
 
-import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.Stat;
 
