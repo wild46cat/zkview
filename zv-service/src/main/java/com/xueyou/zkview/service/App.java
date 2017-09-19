@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * Hello world!
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.xueyou.zkview"})
 @EnableScheduling
 @MapperScan(basePackages = {"com.xueyou.zkview.service.dao"})
 public class App {
