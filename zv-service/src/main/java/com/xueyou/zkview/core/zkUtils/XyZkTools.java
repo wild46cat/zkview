@@ -1,5 +1,6 @@
 package com.xueyou.zkview.core.zkUtils;
 
+import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.Stat;
 
@@ -47,5 +48,12 @@ public class XyZkTools {
         curatorZkClientBridge.writeData(nodePath, value.getBytes(), stat.getVersion());
     }
 
+    public static void createNode(CuratorZkClientBridge curatorZkClientBridge,String nodePath,String value) throws Exception{
+        curatorZkClientBridge.create(nodePath,value.getBytes(), CreateMode.PERSISTENT);
+    }
+
+    public static void deleteNode(CuratorZkClientBridge curatorZkClientBridge,String nodePath) throws Exception{
+        curatorZkClientBridge.delete(nodePath);
+    }
 
 }

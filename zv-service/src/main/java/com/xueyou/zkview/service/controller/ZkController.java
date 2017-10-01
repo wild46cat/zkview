@@ -90,6 +90,30 @@ public class ZkController {
         }
     }
 
+
+    @RequestMapping(value = "/createNode", method = {RequestMethod.POST})
+    public boolean createNode(@RequestBody NodeDto nodeDto) {
+        try {
+            XyZkTools.createNode(curatorZkClientBridge, nodeDto.getNodePath(), nodeDto.getNodeValue());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    @RequestMapping(value = "/deleteNode", method = {RequestMethod.POST})
+    public boolean deleteNode(@RequestBody NodeDto nodeDto) {
+        try {
+            XyZkTools.deleteNode(curatorZkClientBridge, nodeDto.getNodePath());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public CuratorZkClientBridge getCuratorZkClientBridge() {
         return curatorZkClientBridge;
     }
